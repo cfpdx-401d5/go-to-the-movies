@@ -2,44 +2,31 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-function Loading(props) {
-    return <p>Loading ... {props.search}</p>;
-}
+ReactDOM.render(
+   <App movies={[]} loading={true} />,
+   document.getElementById('root')
+ );
 
-Loading.propTypes = {
-    search: React.PropTypes.string
-};
+fetch('http://www.omdbapi.com/?s=Terminator')
+.then(res => res.json()) //fetch returns an object with a Search property
+.then(movies => {
+     ReactDOM.render(
+       <App movies={movies.Search} loading={false} />,
+       document.getElementById('root')
+   );
+});
 
-ReactDOM.render( 
-   <Loading search='Terminator' />,
-    document.getElementById('root')
-);
-
-let movieArray = [];
-
-function getMovies() {
-    fetch('http://www.omdbapi.com/?s=Terminator')
-    .then(res => res.json())
-    .then(movies => {
-        movieArray = movies.Search;
+function App(props) {
+    console.log('props: ', props);
+    if (props.loading) return <p>Loading ....</p>;
+    const movieList = props.movies.sort((a, b) => {
+        return a.Year > b.Year;
+    })
+    .map(movie => {
+        return <li key={movie.imdbID}>{movie.Title} ({movie.Year})</li>;
     });
+
+    return (
+        <ul>{movieList}</ul>
+    );
 }
-
-function MovieDisplay(props) {
-    console.log(props);
-    return props.movies
-    .then(data => {
-        data.Search.map(movie => {
-            return <li key={movie.imdbID}>{movie.Title} ({movie.Year})</li>;
-        });
-    });
-}
-
-getMovies();
-
-console.log('movieArray: ', movieArray);
-
-ReactDOM.render( 
-<MovieDisplay movies={movieArray} />,
-    document.getElementById('root')
-);
