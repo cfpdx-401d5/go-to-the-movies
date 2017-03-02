@@ -1,0 +1,30 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+//import './index.css';
+
+ReactDOM.render( 
+    <p>Loading ... </p>,
+    document.getElementById('root')
+);
+
+fetch('http://www.omdbapi.com/?s=Terminator')
+.then(res => res.json()) //fetch returns an object with a Search property
+.then(movies => {
+        return movies.Search.map(movie => { // eslint-disable-line
+            fetch(`http://www.omdbapi.com/?i=${movie.imdbID}`)
+            .then(res => {
+                return res.json();
+            });
+        });
+})
+.then(movies => {
+    console.log('movies: ', movies);
+    const movieList = movies.PromiseValue.map(movie => {
+        return <li key={movie.imbdID}>{movie}</li>;
+    });
+    ReactDOM.render( 
+        <ul>{movieList}</ul>,
+    document.getElementById('root')
+    );
+})
+.catch(err => console.log('err: ', err));
