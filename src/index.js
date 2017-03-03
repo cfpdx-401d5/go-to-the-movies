@@ -10,7 +10,7 @@ ReactDOM.render(
 fetch('http://www.omdbapi.com/?s=Terminator')
 .then(res => res.json()) //fetch returns an object with a Search property
 .then(movies => {
-     ReactDOM.render(
+    ReactDOM.render(
        <App movies={movies.Search} loading={false} />,
        document.getElementById('root')
    );
@@ -30,3 +30,8 @@ function App(props) {
         <ul>{movieList}</ul>
     );
 }
+
+App.propTypes = {
+    loading: React.PropTypes.string,
+    movies: React.PropTypes.array
+};
