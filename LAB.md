@@ -37,3 +37,4 @@ You are free to query the data for a genre, actor, whatever that you want.
 * HTML/CSS *1pts*
 * Project structure/org *1pts*
 * Curiosity/creativity *1pts*
+
