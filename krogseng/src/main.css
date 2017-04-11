@@ -1,0 +1,27 @@
+
+@import url('https://fonts.googleapis.com/css?family=Fascinate+Inline');
+
+body {
+  margin: 50;
+  padding: 10;
+  font-family: sans-serif;
+}
+
+h1 {
+    width: 50%;
+    margin: 0 auto;
+    padding: 5;
+    border: 5;
+    border-style: outset;
+    text-align: center;
+   font-family: 'Fascinate Inline', cursive;  
+   color: #A036C7; 
+}
+
+.list {
+    width: 50%;
+    margin: 0 auto;
+    padding: 5;
+    font-family: serif;
+    background: 
+}
